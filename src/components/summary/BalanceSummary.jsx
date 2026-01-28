@@ -4,48 +4,40 @@ function BalanceSummary({ totalIncome, totalExpenses, balance }) {
   const balanceClass = balance >= 0 ? 'text-success' : 'text-danger';
 
   return (
-    <>
-      <div className="container">
-        <div className="row mb-4">
-          <div className="col-md-4">
-            <div className="card">
-              <div className="card-body">
-                <h5 className="card-title">Income</h5>
-                <h6 className="card-subtitle mb-2 text-body-secondary">
-                  {formatCurrency(totalIncome)}
-                </h6>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="row mb-4">
-          <div className="col-md-4">
-            <div className="card">
-              <div className="card-body">
-                <h5 className="card-title">Expenses</h5>
-                <h6 className="card-subtitle mb-2 text-body-secondary">
-                  {formatCurrency(totalExpenses)}
-                </h6>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="row mb-4">
-          <div className="col-md-4">
-            <div className="card">
-              <div className="card-body">
-                <h5 className="card-title">Balance</h5>
-                <h6 className="card-subtitle mb-2 text-body-secondary balanceClass">
-                  {formatCurrency(balance)}
-                </h6>
-              </div>
-            </div>
+    <div className="row mb-5 text-center">
+      <div className="col-md-4">
+        <div className="card shadow-sm border-0">
+          <div className="card-body py-3">
+            <h6 className="text-muted text-uppercase small mb-1">Income</h6>
+            <h3 className="fw-bold text-success">
+              {formatCurrency(totalIncome)}
+            </h3>
           </div>
         </div>
       </div>
-    </>
+
+      <div className="col-md-4">
+        <div className="card shadow-sm border-0">
+          <div className="card-body py-3">
+            <h6 className="text-muted text-uppercase small mb-1">Expenses</h6>
+            <h3 className="fw-bold text-danger">
+              {formatCurrency(totalExpenses)}
+            </h3>
+          </div>
+        </div>
+      </div>
+
+      <div className="col-md-4">
+        <div className="card shadow-sm border-0">
+          <div className="card-body py-3">
+            <h6 className="text-muted text-uppercase small mb-1">Balance</h6>
+            <h3 className={`fw-bold ${balanceClass}`}>
+              {formatCurrency(balance)}
+            </h3>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 

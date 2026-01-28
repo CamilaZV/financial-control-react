@@ -6,7 +6,7 @@ export const createTransaction = ({
   date,
 }) => {
   return {
-    id: crypto.randomID(),
+    id: crypto.randomUUID(),
     type,
     amount: Number(amount),
     category,
@@ -15,6 +15,6 @@ export const createTransaction = ({
   };
 };
 
-export function randomID() {
-  return Math.random().toString(36).substring(2, 7).toUpperCase();
-}
+// export function randomID() {
+//   return Math.random().toString(36).substring(2, 7).toUpperCase();
+// }
