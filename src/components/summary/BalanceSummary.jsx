@@ -8,7 +8,9 @@ function BalanceSummary({ totalIncome, totalExpenses, balance }) {
       <div className="col-md-4">
         <div className="card shadow-sm border-0">
           <div className="card-body py-3">
-            <h6 className="text-muted text-uppercase small mb-1">Income</h6>
+            <h6 className="text-muted text-uppercase small mb-1">
+              <i className="bi bi-arrow-up-circle me-1 text-success"></i>Income
+            </h6>
             <h3 className="fw-bold text-success">
               {formatCurrency(totalIncome)}
             </h3>
@@ -19,7 +21,10 @@ function BalanceSummary({ totalIncome, totalExpenses, balance }) {
       <div className="col-md-4">
         <div className="card shadow-sm border-0">
           <div className="card-body py-3">
-            <h6 className="text-muted text-uppercase small mb-1">Expenses</h6>
+            <h6 className="text-muted text-uppercase small mb-1">
+              <i className="bi bi-arrow-down-circle me-1 text-danger"></i>
+              Expenses
+            </h6>
             <h3 className="fw-bold text-danger">
               {formatCurrency(totalExpenses)}
             </h3>
@@ -30,7 +35,9 @@ function BalanceSummary({ totalIncome, totalExpenses, balance }) {
       <div className="col-md-4">
         <div className="card shadow-sm border-0">
           <div className="card-body py-3">
-            <h6 className="text-muted text-uppercase small mb-1">Balance</h6>
+            <h6 className="text-muted text-uppercase small mb-1">
+              <i className="bi bi-wallet2 me-1"></i>Balance
+            </h6>
             <h3 className={`fw-bold ${balanceClass}`}>
               {formatCurrency(balance)}
             </h3>

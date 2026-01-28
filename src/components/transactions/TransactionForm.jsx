@@ -31,11 +31,15 @@ function TransactionForm({ onAddTransaction }) {
 
   const buttonClass = type === 'income' ? 'btn-success' : 'btn-danger';
 
+  const buttonIcon = type === 'income' ? 'bi-plus-circle' : 'bi-dash-circle';
+
   return (
-    <div>
-      <h5 className="my-3">New transaction</h5>
-      <form onSubmit={handleSubmit}>
-        <div>
+    <div className="card shadow-sm">
+      <div className="card-body">
+        <h5 className="mb-3">
+          <i className="bi bi-pencil-square me-2"></i>New transaction
+        </h5>
+        <form onSubmit={handleSubmit}>
           <label className="form-label">Type</label>
           <select
             name="type"
@@ -52,7 +56,6 @@ function TransactionForm({ onAddTransaction }) {
             type="number"
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
-            placeholder="Amount"
             className="form-control mb-3"
           />
 
@@ -61,7 +64,6 @@ function TransactionForm({ onAddTransaction }) {
             type="text"
             value={category}
             onChange={(e) => setCategory(e.target.value)}
-            placeholder="Category"
             className="form-control mb-3"
           />
 
@@ -70,7 +72,6 @@ function TransactionForm({ onAddTransaction }) {
             type="text"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            placeholder="Description"
             className="form-control mb-3"
           />
 
@@ -79,14 +80,15 @@ function TransactionForm({ onAddTransaction }) {
             type="date"
             value={date}
             onChange={(e) => setDate(e.target.value)}
-            placeholder="Date"
             className="form-control mb-3"
           />
-        </div>
-        <button type="submit" className={`btn ${buttonClass} w-100`}>
-          Add {type}
-        </button>
-      </form>
+
+          <button type="submit" className={`btn ${buttonClass} w-100`}>
+            <i className={`bi ${buttonIcon} me-1`}></i>
+            Add {type}
+          </button>
+        </form>
+      </div>
     </div>
   );
 }
