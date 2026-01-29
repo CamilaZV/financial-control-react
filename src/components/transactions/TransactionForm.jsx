@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { CATEGORIES } from '../../constants/categories';
 
 function TransactionForm({ onAddTransaction }) {
@@ -9,6 +9,8 @@ function TransactionForm({ onAddTransaction }) {
   const [date, setDate] = useState('');
 
   const availableCategories = CATEGORIES[type];
+
+  const amountInputRef = useRef(null);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -30,7 +32,13 @@ function TransactionForm({ onAddTransaction }) {
     setDate('');
     setDescription('');
     setType('income');
+
+    amountInputRef.current.focus();
   };
+
+  useEffect(() => {
+    amountInputRef.current.focus();
+  }, []);
 
   useEffect(() => {
     setCategory('');
@@ -53,6 +61,7 @@ function TransactionForm({ onAddTransaction }) {
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
             className="form-control mb-3"
+            ref={amountInputRef}
           />
 
           <label className="form-label">Type</label>
