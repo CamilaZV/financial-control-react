@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { CATEGORIES } from '../../constants/categories';
 
 function TransactionForm({ onAddTransaction }) {
   const [type, setType] = useState('income');
@@ -6,6 +7,8 @@ function TransactionForm({ onAddTransaction }) {
   const [category, setCategory] = useState('');
   const [description, setDescription] = useState('');
   const [date, setDate] = useState('');
+
+  const availableCategories = CATEGORIES[type];
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -29,6 +32,10 @@ function TransactionForm({ onAddTransaction }) {
     setType('income');
   };
 
+  useEffect(() => {
+    setCategory('');
+  }, [type]);
+
   const buttonClass = type === 'income' ? 'btn-success' : 'btn-danger';
 
   const buttonIcon = type === 'income' ? 'bi-plus-circle' : 'bi-dash-circle';
@@ -40,6 +47,14 @@ function TransactionForm({ onAddTransaction }) {
           <i className="bi bi-pencil-square me-2"></i>New transaction
         </h5>
         <form onSubmit={handleSubmit}>
+          <label className="form-label">Amount</label>
+          <input
+            type="number"
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+            className="form-control mb-3"
+          />
+
           <label className="form-label">Type</label>
           <select
             name="type"
@@ -51,21 +66,21 @@ function TransactionForm({ onAddTransaction }) {
             <option value="expense">Expense</option>
           </select>
 
-          <label className="form-label">Amount</label>
-          <input
-            type="number"
-            value={amount}
-            onChange={(e) => setAmount(e.target.value)}
-            className="form-control mb-3"
-          />
-
           <label className="form-label">Category</label>
-          <input
-            type="text"
+          <select
+            name="category"
             value={category}
             onChange={(e) => setCategory(e.target.value)}
-            className="form-control mb-3"
-          />
+            className="form-select mb-3"
+            disabled={!availableCategories}
+          >
+            <option value="">Select category </option>
+            {availableCategories.map((cat) => (
+              <option key={cat} value={cat}>
+                {cat}
+              </option>
+            ))}
+          </select>
 
           <label className="form-label">Description</label>
           <input

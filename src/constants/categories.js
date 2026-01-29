@@ -1,14 +1,14 @@
-const categories = [
-  'housing',
-  'transport',
-  'healthcare',
-  'utilities',
-  'entertainment',
-  'shopping',
-  'dining out',
-  'salary',
-  'freelance',
-  'investments',
-  'gifts',
-  'bonus',
-];
+export const CATEGORIES = {
+  income: ['Salary', 'Freelance', 'Investments', 'Gifts', 'Bonus', 'Other'],
+  expense: [
+    'Rent',
+    'Transport',
+    'Health',
+    'Utilities',
+    'Entertainment',
+    'Shopping',
+    'Food',
+    'School',
+    'Other',
+  ],
+};
