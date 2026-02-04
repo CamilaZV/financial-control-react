@@ -7,15 +7,39 @@ function TransactionForm({ onAddTransaction }) {
   const [category, setCategory] = useState('');
   const [description, setDescription] = useState('');
   const [date, setDate] = useState('');
+  const [errors, setErrors] = useState({});
 
   const availableCategories = CATEGORIES[type];
 
   const amountInputRef = useRef(null);
 
+  const validate = ({ amount, category, description, date }) => {
+    const errors = {};
+    if (!amount || amount <= 0) {
+      errors.amount = 'Amount is required';
+    }
+    if (!category) {
+      errors.category = 'Select a category';
+    }
+    if (!description.trim()) {
+      errors.description = 'Description is required';
+    }
+    if (!date) {
+      errors.date = 'Enter a valid date';
+    }
+    return errors;
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!amount || amount <= 0) return;
-    if (!category || !description.trim() || !type || !date) return;
+
+    const validationErrors = validate({ amount, category, description, date });
+
+    setErrors(validationErrors);
+
+    if (Object.keys(validationErrors).length > 0) {
+      return;
+    }
 
     const newTransaction = {
       id: crypto.randomUUID(),
@@ -25,6 +49,7 @@ function TransactionForm({ onAddTransaction }) {
       description,
       date,
     };
+
     onAddTransaction(newTransaction);
 
     setAmount('');
@@ -32,6 +57,7 @@ function TransactionForm({ onAddTransaction }) {
     setDate('');
     setDescription('');
     setType('income');
+    setErrors({});
 
     amountInputRef.current.focus();
   };
@@ -60,16 +86,21 @@ function TransactionForm({ onAddTransaction }) {
             type="number"
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
-            className="form-control mb-3"
+            className="form-control"
             ref={amountInputRef}
           />
+          {errors.amount && (
+            <div className="text-danger small mt-1 mb-2 text-end">
+              {errors.amount}
+            </div>
+          )}
 
           <label className="form-label">Type</label>
           <select
             name="type"
             value={type}
             onChange={(e) => setType(e.target.value)}
-            className="form-select mb-3"
+            className="form-select mb-2"
           >
             <option value="income">Income</option>
             <option value="expense">Expense</option>
@@ -80,7 +111,7 @@ function TransactionForm({ onAddTransaction }) {
             name="category"
             value={category}
             onChange={(e) => setCategory(e.target.value)}
-            className="form-select mb-3"
+            className="form-select"
             disabled={!availableCategories}
           >
             <option value="">Select category </option>
@@ -90,24 +121,39 @@ function TransactionForm({ onAddTransaction }) {
               </option>
             ))}
           </select>
+          {errors.category && (
+            <div className="text-danger small mt-1 mb-2 text-end">
+              {errors.category}
+            </div>
+          )}
 
           <label className="form-label">Description</label>
           <input
             type="text"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            className="form-control mb-3"
+            className="form-control"
           />
+          {errors.description && (
+            <div className="text-danger small mt-1 mb-2 text-end">
+              {errors.description}
+            </div>
+          )}
 
           <label className="form-label">Date</label>
           <input
             type="date"
             value={date}
             onChange={(e) => setDate(e.target.value)}
-            className="form-control mb-3"
+            className="form-control"
           />
+          {errors.date && (
+            <div className="text-danger small mt-1 mb-2 text-end">
+              {errors.date}
+            </div>
+          )}
 
-          <button type="submit" className={`btn ${buttonClass} w-100`}>
+          <button type="submit" className={`btn ${buttonClass} w-100 mt-2`}>
             <i className={`bi ${buttonIcon} me-1`}></i>
             Add {type}
           </button>
